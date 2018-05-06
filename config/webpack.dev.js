@@ -7,7 +7,7 @@ module.exports = merge(common, {
     devServer: {
         contentBase: path.resolve(__dirname, "./dist/assets/media"),
         compress: true,
-        port: 8000,
+        port: 8004,
         stats: 'errors-only',
         open: true
     }
