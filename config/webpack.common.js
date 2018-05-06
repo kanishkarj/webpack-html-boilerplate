@@ -2,6 +2,7 @@ const path = require('path')
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack')
 
 const ExtractCSSPlugin = new ExtractTextPlugin({
     filename: './assets/css/[name].css',
@@ -10,7 +11,8 @@ const ExtractCSSPlugin = new ExtractTextPlugin({
 const config = {
     context: path.resolve(__dirname, "../src"),
     entry: {
-        app: './assets/js/app.js'
+        app: './assets/js/app.js',
+        page: './assets/js/page.js'
     },
     output: {
         path: path.resolve(__dirname, '../dist'),
@@ -62,11 +64,17 @@ const config = {
     },
     plugins: [
         new CleanWebpackPlugin(['dist']),
+        ExtractCSSPlugin,
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: 'index.html'
+            template: 'index.html',
+            chunks: ['app']
         }),
-        ExtractCSSPlugin
+        new HtmlWebpackPlugin({
+            filename: 'page.html',
+            template: 'page.html',
+            chunks: ['page']
+        }),
     ]
 };
 
